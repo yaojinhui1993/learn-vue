@@ -10,21 +10,34 @@
 </head>
 <body>
 <div id="app">
-  <input type="text" id="input" v-model="message">
-  <p>
-    This value of this input is: @{{ message }}
-  </p>
+  <ul>
+    <li v-for="name in names" v-text="name"></li>
+  </ul>
+
+  <input id="input" type="text">
+  <button id="button">Add Names</button>
 </div>
 
 
 <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
 <script>
-  let data = {
-    message: 'Hello World'
-  };
   let app = new Vue({
     el: '#app',
-    data: data
+    data: {
+      names: [
+          'Joe', 'Merry', 'Jane', 'Jack'
+      ]
+    },
+    mounted() {
+      document.querySelector('#button').addEventListener('click', () => {
+        let name = document.querySelector('#input');
+        app.names.push(name.value);
+
+        name.value = '';
+      });
+
+    },
+
   });
 
 </script>
