@@ -9,8 +9,12 @@
 
 </head>
 <body>
-
-<input type="text" id="input">
+<div id="app">
+  <input type="text" id="input" v-model="message">
+  <p>
+    This value of this input is: @{{ message }}
+  </p>
+</div>
 
 
 <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
@@ -18,8 +22,11 @@
   let data = {
     message: 'Hello World'
   };
+  let app = new Vue({
+    el: '#app',
+    data: data
+  });
 
-  document.querySelector('#input').value = data.message;
 </script>
 
 </body>
