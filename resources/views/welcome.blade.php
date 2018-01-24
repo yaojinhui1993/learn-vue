@@ -14,8 +14,8 @@
     <li v-for="name in names" v-text="name"></li>
   </ul>
 
-  <input id="input" type="text">
-  <button id="button">Add Names</button>
+  <input id="input" type="text" v-model="newName" >
+  <button @click="addNames">Add Names</button>
 </div>
 
 
@@ -26,18 +26,17 @@
     data: {
       names: [
           'Joe', 'Merry', 'Jane', 'Jack'
-      ]
+      ],
+      newName: '',
     },
-    mounted() {
-      document.querySelector('#button').addEventListener('click', () => {
-        let name = document.querySelector('#input');
-        app.names.push(name.value);
+    methods: {
+      addNames() {
+        this.names.push(this.newName);
 
-        name.value = '';
-      });
+        this.newName = '';
 
-    },
-
+      }
+    }
   });
 
 </script>
