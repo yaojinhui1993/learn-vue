@@ -7,15 +7,29 @@
 
   <title>Learn Vue</title>
 
+  <style>
+    .color-red {
+      color: red;
+    }
+
+    .color-blue {
+      color: blue;
+    }
+
+    .is-loading {
+      color: red;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
-  <ul>
-    <li v-for="name in names" v-text="name"></li>
-  </ul>
+  <button :title="title">Hover over me</button>
 
-  <input id="input" type="text" v-model="newName" >
-  <button @click="addNames">Add Names</button>
+  <h1 :class="className">Title</h1>
+
+  <button :class="{ 'is-loading': isLoading }" @click="toggleClass">Click me toggle</button>
+
+  <button :disabled="isDisabled" @click="toggleDisabled">Click me disabled</button>
 </div>
 
 
@@ -24,23 +38,22 @@
   let app = new Vue({
     el: '#app',
     data: {
-      names: [
-          'Joe', 'Merry', 'Jane', 'Jack'
-      ],
-      newName: '',
+      title: 'Now title is being set through the JavaScript.',
+      className: 'color-red',
+      isLoading: true,
+      isDisabled: false,
     },
     methods: {
-      addNames() {
-        this.names.push(this.newName);
+       toggleClass () {
+         this.isLoading = ! this.isLoading;
+       },
 
-        this.newName = '';
-
-      }
+       toggleDisabled () {
+         this.isDisabled = ! this.isDisabled;
+       }
     }
-  });
 
+  })
 </script>
-
 </body>
-
 </html>
