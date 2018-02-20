@@ -990,7 +990,10 @@ window.Vue = __webpack_require__(33);
 Vue.component('example-component', __webpack_require__(36));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    message: 'Hello World!'
+  }
 });
 
 /***/ }),
