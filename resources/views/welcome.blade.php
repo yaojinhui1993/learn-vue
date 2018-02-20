@@ -16,8 +16,14 @@
 </head>
 <body class="bg-brand-lightest font-sans font-normal">
     <div id="app">
-        <input type="text" v-model='message'>
-        The message is: @{{ message}}
+        <ul>
+            <li v-for="name in names" v-text="name"></li>
+        </ul>
+
+        <div>
+            {{--  <input type="text"  v-model="newName">  --}}
+            {{--  <button @click="addName"></button>  --}}
+        </div>
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
