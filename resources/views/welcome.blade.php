@@ -21,8 +21,8 @@
         </ul>
 
         <div>
-            {{--  <input type="text"  v-model="newName">  --}}
-            {{--  <button @click="addName"></button>  --}}
+            <input type="text"  v-model="newName">
+            <button @click="addName">Add Name</button>
         </div>
     </div>
 

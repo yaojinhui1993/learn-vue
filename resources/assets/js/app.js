@@ -22,6 +22,13 @@ const app = new Vue({
     data() {
         return {
             names: ['Jane', 'Jone', 'Jack', 'Mary'],
+            newName: ''
         }
     },
+    methods: {
+        addName() {
+            this.names.push(this.newName);
+            this.newName = '';
+        }
+    }
 });

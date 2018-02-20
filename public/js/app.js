@@ -993,8 +993,16 @@ var app = new Vue({
     el: '#app',
     data: function data() {
         return {
-            names: ['Jane', 'Jone', 'Jack', 'Mary']
+            names: ['Jane', 'Jone', 'Jack', 'Mary'],
+            newName: ''
         };
+    },
+
+    methods: {
+        addName: function addName() {
+            this.names.push(this.newName);
+            this.newName = '';
+        }
     }
 });
 
