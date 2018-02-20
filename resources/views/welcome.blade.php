@@ -21,11 +21,20 @@
 </head>
 <body class="font-sans font-normal">
 
-   <div id="app" class="container">
-       <modal content="Any text." v-if="showModal" @close="showModal = false"></modal>
+    <div id="app" class="container">
+        <tabs>
+            <tab name="About Us" :selected="true">
+                <h1>Here is the content for the about us tab.</h1>
+            </tab>
+            <tab name="About Our Culture">
+                <h1>Here is the content for the about our culture tab.</h1>
+            </tab>
+            <tab name="About Our Version">
+                <h1>Here is the content for the about our version tab.</h1>
+            </tab>
+        </tabs>
 
-       <button @click="show">Show Modal</button>
-   </div>
+    </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
 </body>

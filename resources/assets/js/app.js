@@ -14,27 +14,66 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('modal', {
-    props: ['content'],
+Vue.component('tabs', {
     template: `
-        <div class="modal is-active">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="box">
-                    <p v-text="content"></p>
-                </div>
+        <div>
+            <div class="tabs">
+                <ul>
+                    <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive}">
+                        <a :href="tab.href" v-text="tab.name" @click="selectTab(tab)"></a>
+                    </li>
+                </ul>
+            </div>    
+            <div class="tabs-detail">
+                <slot></slot>
             </div>
-            <button class="modal-close is-large" aria-label="close" @click="$emit('close')"></button>
         </div>
     `,
+    data() {
+        return {
+            tabs: []
+        }
+    },
+    created() {
+        this.tabs = this.$children;
+    },
+    methods: {
+        selectTab(selectedTab) {
+            this.tabs.forEach(tab => {
+                tab.isActive = (selectedTab.name == tab.name);
+            });
+        }
+    }
 });
+
+Vue.component('tab', {
+    props: {
+        name: { required: true},
+        selected: { default: false} 
+    },
+    template: `
+        <div v-show="isActive">
+            <slot></slot>
+        </div>
+    `,
+    data() {
+        return {
+            isActive: false
+        }
+    },
+    mounted() {
+        this.isActive = this.selected;
+    },
+    computed: {
+        href() {
+            return '#' + this.name.toLowerCase().replace(/ /g, '-');
+        }
+    }
+})
+
 
 const app = new Vue({
     el: '#app',
-    data: {
-        showModal: false
-    },
     methods: {
         show() {
             this.showModal = true;

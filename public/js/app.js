@@ -986,17 +986,50 @@ window.Vue = __webpack_require__(33);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('tabs', {
+    template: '\n        <div>\n            <div class="tabs">\n                <ul>\n                    <li v-for="tab in tabs" :class="{ \'is-active\': tab.isActive}">\n                        <a :href="tab.href" v-text="tab.name" @click="selectTab(tab)"></a>\n                    </li>\n                </ul>\n            </div>    \n            <div class="tabs-detail">\n                <slot></slot>\n            </div>\n        </div>\n    ',
+    data: function data() {
+        return {
+            tabs: []
+        };
+    },
+    created: function created() {
+        this.tabs = this.$children;
+    },
 
-Vue.component('modal', {
-    props: ['content'],
-    template: '\n        <div class="modal is-active">\n            <div class="modal-background"></div>\n            <div class="modal-content">\n                <div class="box">\n                    <p v-text="content"></p>\n                </div>\n            </div>\n            <button class="modal-close is-large" aria-label="close" @click="$emit(\'close\')"></button>\n        </div>\n    '
+    methods: {
+        selectTab: function selectTab(selectedTab) {
+            this.tabs.forEach(function (tab) {
+                tab.isActive = selectedTab.name == tab.name;
+            });
+        }
+    }
+});
+
+Vue.component('tab', {
+    props: {
+        name: { required: true },
+        selected: { default: false }
+    },
+    template: '\n        <div v-show="isActive">\n            <slot></slot>\n        </div>\n    ',
+    data: function data() {
+        return {
+            isActive: false
+        };
+    },
+    mounted: function mounted() {
+        this.isActive = this.selected;
+    },
+
+    computed: {
+        href: function href() {
+            return '#' + this.name.toLowerCase().replace(/ /g, '-');
+        }
+    }
 });
 
 var app = new Vue({
     el: '#app',
-    data: {
-        showModal: false
-    },
     methods: {
         show: function show() {
             this.showModal = true;
