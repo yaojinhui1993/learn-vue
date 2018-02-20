@@ -963,16 +963,13 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(40);
+module.exports = __webpack_require__(36);
 
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -989,52 +986,12 @@ window.Vue = __webpack_require__(33);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-window.Event = new (function () {
-    function _class() {
-        _classCallCheck(this, _class);
-
-        this.vue = new Vue();
-    }
-
-    _createClass(_class, [{
-        key: 'fire',
-        value: function fire(event) {
-            var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-            this.vue.$emit(event, data);
-        }
-    }, {
-        key: 'listen',
-        value: function listen(event, callback) {
-            this.vue.$on(event, callback);
-        }
-    }]);
-
-    return _class;
-}())();
-
-Vue.component('coupon', {
-    template: '\n        <input type="text" placeholder="Input coupon code." @blur="applyCoupon"> \n    ',
-    methods: {
-        applyCoupon: function applyCoupon() {
-            console.log('apply coupon!');
-            Event.fire('apply');
-        }
-    }
+Vue.component('modal', {
+  template: '\n    <div class="modal is-active">\n      <div class="modal-background"></div>\n      <div class="modal-card">\n        <header class="modal-card-head">\n          <p class="modal-card-title">\n            <slot name="header"></slot>\n          </p>\n          <button class="delete" aria-label="close"></button>\n        </header>\n        <section class="modal-card-body">\n          <p>\n            <slot name="body"></slot>\n          </p>\n        </section>\n        <footer class="modal-card-foot">\n          <slot name="footer">\n            <button class="button is-success">Save changes</button>\n          </slot>\n\n        </footer>\n      </div>\n    </div>\n  '
 });
 
 var app = new Vue({
-    el: '#app',
-    mounted: function mounted() {
-        Event.listen('apply', function () {
-            alert('Handling it!');
-        });
-    },
-    data: function data() {
-        return {
-            isShow: false
-        };
-    }
+  el: '#app'
 });
 
 /***/ }),
@@ -30183,11 +30140,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 36 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
