@@ -26,15 +26,12 @@
 <body class="font-sans font-normal">
 
   <div id="app" class="container">
-    <modal>
-      <template slot="header">Dynamic Header</template>
-      <template slot="body">Dynamic Body</template>
-      <template slot="footer">
-          <button class="button is-success">Save changes</button>
-      </template>
-
-
-    </modal>
+    <progress-view inline-template>
+      <div>
+        <h1>Your Progress Through This Course Is @{{ completeRate }}%</h1>
+        <button @click="completeRate += 10">Add Rate</button>
+      </div>
+    </progress-view>
 
   </div>
 

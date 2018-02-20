@@ -986,8 +986,12 @@ window.Vue = __webpack_require__(33);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('modal', {
-  template: '\n    <div class="modal is-active">\n      <div class="modal-background"></div>\n      <div class="modal-card">\n        <header class="modal-card-head">\n          <p class="modal-card-title">\n            <slot name="header"></slot>\n          </p>\n          <button class="delete" aria-label="close"></button>\n        </header>\n        <section class="modal-card-body">\n          <p>\n            <slot name="body"></slot>\n          </p>\n        </section>\n        <footer class="modal-card-foot">\n          <slot name="footer">\n            <button class="button is-success">Save changes</button>\n          </slot>\n\n        </footer>\n      </div>\n    </div>\n  '
+Vue.component('progress-view', {
+  data: function data() {
+    return {
+      completeRate: 0
+    };
+  }
 });
 
 var app = new Vue({
