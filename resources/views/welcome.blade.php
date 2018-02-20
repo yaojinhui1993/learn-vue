@@ -25,15 +25,19 @@
 <body class="bg-brand-lightest font-sans font-normal">
 
     <div id="app">
-        <button type="button" v-bind:title="title">Hover over me</button>
-
-        <h1 v-bind:class="className">Class</h1>
-
-        <button :class="{'is-loading': isLoading}" @click="toggleClass">Click me</button>
+        <span v-text="reversedMessage"></span>
 
         <br>
+        <h1>`v-if` Tasks</h1>
+        <ul>
+            <li v-for="task in tasks" v-if="task.completed" v-text="task.description"></li>
+        </ul>
 
-        <button :disabled="isDisabled" @click="toggleDisabled">Toggle disabled</button>
+
+        <h1>Incomplete Tasks</h1>
+        <ul>
+            <li v-for="task in incompletedTasks" v-text="task.description"></li>
+        </ul>
 
     </div>
 

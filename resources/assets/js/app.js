@@ -19,20 +19,24 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app',
-    data() {
-        return {
-            title: 'Now the title is being set through JavaScript.',
-            className: 'red',
-            isLoading: false,
-            isDisabled: false
-        }
+    data: {
+        message: 'Hello World!',
+        tasks: [
+            { description: 'Go to the store', completed: true},
+            { description: 'Finish screencast', completed: true},
+            { description: 'Make donation', completed: false},
+            { description: 'Clear inbox', completed: false},
+            { description: 'Make dinner', completed: true},
+            { description: 'Clean room', completed: true},
+        ] 
     },
-    methods: {
-        toggleClass() {
-            this.isLoading = ! this.isLoading;
+    computed: {
+        reversedMessage() {
+            return this.message.split('').reverse().join('');
         },
-        toggleDisabled() {
-            this.isDisabled = true;
+        incompletedTasks() {
+            return this.tasks.filter(task => ! task.completed);
         }
     }
+
 });
