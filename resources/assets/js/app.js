@@ -17,6 +17,22 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+Vue.component('task-list', {
+    template: '<div><task v-for="task in tasks">{{ task.description }}</task></div>',
+    data() {
+        return {
+            tasks: [
+                { description: 'Go to the school', completed: true },
+                { description: 'Go to work', completed: false}
+            ]
+        }
+    }
+});
+
+Vue.component('task', {
+    template: '<li><slot></slot></li>'
+});
+
 const app = new Vue({
     el: '#app',
 

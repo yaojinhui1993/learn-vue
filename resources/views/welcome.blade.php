@@ -13,21 +13,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <style>
-        .red {
-            color: red
-        }
-        .is-loading {
-            color: blue
-        }
-    </style>
 </head>
 <body class="bg-brand-lightest font-sans font-normal">
 
     <div id="app">
-        <example-component>Go to school</example-component>
-        <example-component>Go to work</example-component>
-        <example-component>Go to bank</example-component>
+        <task-list></task-list>
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>

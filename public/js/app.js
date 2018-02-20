@@ -989,8 +989,21 @@ window.Vue = __webpack_require__(33);
 
 Vue.component('example-component', __webpack_require__(36));
 
+Vue.component('task-list', {
+    template: '<div><task v-for="task in tasks">{{ task.description }}</task></div>',
+    data: function data() {
+        return {
+            tasks: [{ description: 'Go to the school', completed: true }, { description: 'Go to work', completed: false }]
+        };
+    }
+});
+
+Vue.component('task', {
+    template: '<li><slot></slot></li>'
+});
+
 var app = new Vue({
-  el: '#app'
+    el: '#app'
 
 });
 
@@ -30304,10 +30317,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -30323,7 +30332,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", [_vm._t("default")], 2)
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
