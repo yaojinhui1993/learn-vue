@@ -21,9 +21,10 @@
 </head>
 <body class="font-sans font-normal">
 
-    <div id="app" class="container">
-        <message title="hello world" body="lorem ipsum"></message>
-        <message title="Hello Bulma" body="Bla bla bla"></message>
+   <div id="app" class="container">
+       <modal content="Any text." v-if="showModal" @close="showModal = false"></modal>
+
+       <button @click="show">Show Modal</button>
    </div>
 
 <script src="{{ mix('js/app.js') }}"></script>

@@ -15,50 +15,29 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-Vue.component('task-list', {
+Vue.component('modal', {
+    props: ['content'],
     template: `
-        <div>
-            <task v-for="task in tasks">{{ task.description }}</task>
-        </div>`,
-    data() {
-        return {
-            tasks: [
-                { description: 'Go to the school', completed: true },
-                { description: 'Go to work', completed: false}
-            ]
-        }
-    }
-});
-
-Vue.component('task', {
-    template: '<li><slot></slot></li>'
-});
-
-
-Vue.component('message', {
-    props: ['title', 'body'],
-    template: `
-        <article class="message" v-if="isVisable">
-            <div class="message-header">
-                <p v-text='title'></p>
-                <button class="delete" @click='isVisable = false'></button>
+        <div class="modal is-active">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="box">
+                    <p v-text="content"></p>
+                </div>
             </div>
-            <div class="message-body" v-text='body'>
-                 
-            </div>
-        </article> 
+            <button class="modal-close is-large" aria-label="close" @click="$emit('close')"></button>
+        </div>
     `,
-    data() {
-        return {
-            isVisable: true
-        }
-    }
-
 });
 
 const app = new Vue({
     el: '#app',
-
+    data: {
+        showModal: false
+    },
+    methods: {
+        show() {
+            this.showModal = true;
+        }
+    }
 });
