@@ -970,6 +970,9 @@ module.exports = __webpack_require__(40);
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -986,23 +989,46 @@ window.Vue = __webpack_require__(33);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+window.Event = new (function () {
+    function _class() {
+        _classCallCheck(this, _class);
+
+        this.vue = new Vue();
+    }
+
+    _createClass(_class, [{
+        key: 'fire',
+        value: function fire(event) {
+            var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            this.vue.$emit(event, data);
+        }
+    }, {
+        key: 'listen',
+        value: function listen(event, callback) {
+            this.vue.$on(event, callback);
+        }
+    }]);
+
+    return _class;
+}())();
 
 Vue.component('coupon', {
     template: '\n        <input type="text" placeholder="Input coupon code." @blur="applyCoupon"> \n    ',
     methods: {
         applyCoupon: function applyCoupon() {
             console.log('apply coupon!');
-            this.$emit('apply');
+            Event.fire('apply');
         }
     }
 });
 
 var app = new Vue({
     el: '#app',
-    methods: {
-        applyCouponOnParent: function applyCouponOnParent() {
-            this.isShow = true;
-        }
+    mounted: function mounted() {
+        Event.listen('apply', function () {
+            alert('Handling it!');
+        });
     },
     data: function data() {
         return {

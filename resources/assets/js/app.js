@@ -14,6 +14,20 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+window.Event = new class {
+    constructor() {
+        this.vue = new Vue();
+    }
+
+    fire(event, data = null) {
+        this.vue.$emit(event, data); 
+    }
+
+    listen(event, callback) {
+        this.vue.$on(event, callback);
+    }
+
+}
 
 
 Vue.component('coupon', {
@@ -23,7 +37,7 @@ Vue.component('coupon', {
     methods: {
         applyCoupon() {
             console.log('apply coupon!');
-            this.$emit('apply');
+            Event.fire('apply');
         }
     }  
 });
@@ -31,10 +45,10 @@ Vue.component('coupon', {
 
 const app = new Vue({
     el: '#app',
-    methods: {
-        applyCouponOnParent() {
-            this.isShow = true;
-        }
+    mounted() {
+        Event.listen('apply', function(){
+            alert('Handling it!');
+        })
     },
     data() {
         return {

@@ -22,8 +22,8 @@
 <body class="font-sans font-normal">
 
     <div id="app" class="container">
-        <coupon @apply="applyCouponOnParent"></coupon>
-        <p v-if="isShow">Until coupon apply</p>
+        <coupon ></coupon>
+        <p v-if="isShow">You used coupon apply</p>
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
