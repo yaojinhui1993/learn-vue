@@ -18,7 +18,10 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 Vue.component('task-list', {
-    template: '<div><task v-for="task in tasks">{{ task.description }}</task></div>',
+    template: `
+        <div>
+            <task v-for="task in tasks">{{ task.description }}</task>
+        </div>`,
     data() {
         return {
             tasks: [
@@ -31,6 +34,28 @@ Vue.component('task-list', {
 
 Vue.component('task', {
     template: '<li><slot></slot></li>'
+});
+
+
+Vue.component('message', {
+    props: ['title', 'body'],
+    template: `
+        <article class="message" v-if="isVisable">
+            <div class="message-header">
+                <p v-text='title'></p>
+                <button class="delete" @click='isVisable = false'></button>
+            </div>
+            <div class="message-body" v-text='body'>
+                 
+            </div>
+        </article> 
+    `,
+    data() {
+        return {
+            isVisable: true
+        }
+    }
+
 });
 
 const app = new Vue({

@@ -13,12 +13,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-</head>
-<body class="bg-brand-lightest font-sans font-normal">
 
-    <div id="app">
-        <task-list></task-list>
-    </div>
+    <link href="https://cdn.bootcss.com/bulma/0.6.2/css/bulma.min.css" rel="stylesheet">
+    <style>
+        body { margin-top: 40px }
+    </style>
+</head>
+<body class="font-sans font-normal">
+
+    <div id="app" class="container">
+        <message title="hello world" body="lorem ipsum"></message>
+        <message title="Hello Bulma" body="Bla bla bla"></message>
+   </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
 </body>

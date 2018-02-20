@@ -990,7 +990,7 @@ window.Vue = __webpack_require__(33);
 Vue.component('example-component', __webpack_require__(36));
 
 Vue.component('task-list', {
-    template: '<div><task v-for="task in tasks">{{ task.description }}</task></div>',
+    template: '\n        <div>\n            <task v-for="task in tasks">{{ task.description }}</task>\n        </div>',
     data: function data() {
         return {
             tasks: [{ description: 'Go to the school', completed: true }, { description: 'Go to work', completed: false }]
@@ -1000,6 +1000,16 @@ Vue.component('task-list', {
 
 Vue.component('task', {
     template: '<li><slot></slot></li>'
+});
+
+Vue.component('message', {
+    props: ['title', 'body'],
+    template: '\n        <article class="message" v-if="isVisable">\n            <div class="message-header">\n                <p v-text=\'title\'></p>\n                <button class="delete" @click=\'isVisable = false\'></button>\n            </div>\n            <div class="message-body" v-text=\'body\'>\n                 \n            </div>\n        </article> \n    ',
+    data: function data() {
+        return {
+            isVisable: true
+        };
+    }
 });
 
 var app = new Vue({
