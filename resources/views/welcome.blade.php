@@ -13,22 +13,30 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <style>
+        .red {
+            color: red
+        }
+        .is-loading {
+            color: blue
+        }
+    </style>
 </head>
 <body class="bg-brand-lightest font-sans font-normal">
-    <div id="app">
-        <ul>
-            <li v-for="name in names" v-text="name"></li>
-        </ul>
 
-        <div>
-            <input type="text"  v-model="newName">
-            <button @click="addName">Add Name</button>
-        </div>
+    <div id="app">
+        <button type="button" v-bind:title="title">Hover over me</button>
+
+        <h1 v-bind:class="className">Class</h1>
+
+        <button :class="{'is-loading': isLoading}" @click="toggleClass">Click me</button>
+
+        <br>
+
+        <button :disabled="isDisabled" @click="toggleDisabled">Toggle disabled</button>
+
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
-<script>
-
-</script>
 </body>
 </html>

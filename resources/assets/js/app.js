@@ -21,14 +21,18 @@ const app = new Vue({
     el: '#app',
     data() {
         return {
-            names: ['Jane', 'Jone', 'Jack', 'Mary'],
-            newName: ''
+            title: 'Now the title is being set through JavaScript.',
+            className: 'red',
+            isLoading: false,
+            isDisabled: false
         }
     },
     methods: {
-        addName() {
-            this.names.push(this.newName);
-            this.newName = '';
+        toggleClass() {
+            this.isLoading = ! this.isLoading;
+        },
+        toggleDisabled() {
+            this.isDisabled = true;
         }
     }
 });

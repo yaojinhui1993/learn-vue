@@ -993,15 +993,19 @@ var app = new Vue({
     el: '#app',
     data: function data() {
         return {
-            names: ['Jane', 'Jone', 'Jack', 'Mary'],
-            newName: ''
+            title: 'Now the title is being set through JavaScript.',
+            className: 'red',
+            isLoading: false,
+            isDisabled: false
         };
     },
 
     methods: {
-        addName: function addName() {
-            this.names.push(this.newName);
-            this.newName = '';
+        toggleClass: function toggleClass() {
+            this.isLoading = !this.isLoading;
+        },
+        toggleDisabled: function toggleDisabled() {
+            this.isDisabled = true;
         }
     }
 });
