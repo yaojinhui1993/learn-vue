@@ -19,24 +19,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app',
-    data: {
-        message: 'Hello World!',
-        tasks: [
-            { description: 'Go to the store', completed: true},
-            { description: 'Finish screencast', completed: true},
-            { description: 'Make donation', completed: false},
-            { description: 'Clear inbox', completed: false},
-            { description: 'Make dinner', completed: true},
-            { description: 'Clean room', completed: true},
-        ] 
-    },
-    computed: {
-        reversedMessage() {
-            return this.message.split('').reverse().join('');
-        },
-        incompletedTasks() {
-            return this.tasks.filter(task => ! task.completed);
-        }
-    }
 
 });

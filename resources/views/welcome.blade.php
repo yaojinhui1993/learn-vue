@@ -25,20 +25,9 @@
 <body class="bg-brand-lightest font-sans font-normal">
 
     <div id="app">
-        <span v-text="reversedMessage"></span>
-
-        <br>
-        <h1>`v-if` Tasks</h1>
-        <ul>
-            <li v-for="task in tasks" v-if="task.completed" v-text="task.description"></li>
-        </ul>
-
-
-        <h1>Incomplete Tasks</h1>
-        <ul>
-            <li v-for="task in incompletedTasks" v-text="task.description"></li>
-        </ul>
-
+        <example-component>Go to school</example-component>
+        <example-component>Go to work</example-component>
+        <example-component>Go to bank</example-component>
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
