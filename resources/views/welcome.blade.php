@@ -22,18 +22,8 @@
 <body class="font-sans font-normal">
 
     <div id="app" class="container">
-        <tabs>
-            <tab name="About Us" :selected="true">
-                <h1>Here is the content for the about us tab.</h1>
-            </tab>
-            <tab name="About Our Culture">
-                <h1>Here is the content for the about our culture tab.</h1>
-            </tab>
-            <tab name="About Our Version">
-                <h1>Here is the content for the about our version tab.</h1>
-            </tab>
-        </tabs>
-
+        <coupon @apply="applyCouponOnParent"></coupon>
+        <p v-if="isShow">Until coupon apply</p>
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
