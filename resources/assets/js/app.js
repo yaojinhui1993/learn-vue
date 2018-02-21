@@ -19,23 +19,34 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('coupon', {
+  props: ['code'],
+  template: `
+    <input type="text" :value="code" @input="updateCode($event.target.value)" ref="input">
+  `,
+  methods: {
+    updateCode(code) {
+      // Validate
+      if (code === 'ALLFREE') {
+        alert('This coupon is no longer valid, sorry!');
+        this.$refs.input.value = code = '';
+      }
+
+
+      this.$emit('input', code);
+    }
+  },
+  model: {
+    prop: 'code',
+    event: 'input'
+  }
+
+})
 
 
 const app = new Vue({
   el: '#app',
-  data() {
-    return {
-      form: new Form({
-        name: '',
-        description: '',
-      })
-    }
-  },
-
-  methods: {
-    onSubmit() {
-      this.form.post('/projects')
-        .then(data => console.log(data));
-    }
+  data: {
+    coupon: 'FREE'
   }
 });

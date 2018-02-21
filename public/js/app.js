@@ -30129,25 +30129,31 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('coupon', {
+  props: ['code'],
+  template: '\n    <input type="text" :value="code" @input="updateCode($event.target.value)" ref="input">\n  ',
+  methods: {
+    updateCode: function updateCode(code) {
+      // Validate
+      if (code === 'ALLFREE') {
+        alert('This coupon is no longer valid, sorry!');
+        this.$refs.input.value = code = '';
+      }
+
+      this.$emit('input', code);
+    }
+  },
+  model: {
+    prop: 'code',
+    event: 'input'
+  }
+
+});
 
 var app = new Vue({
   el: '#app',
-  data: function data() {
-    return {
-      form: new __WEBPACK_IMPORTED_MODULE_1__core_Form__["a" /* default */]({
-        name: '',
-        description: ''
-      })
-    };
-  },
-
-
-  methods: {
-    onSubmit: function onSubmit() {
-      this.form.post('/projects').then(function (data) {
-        return console.log(data);
-      });
-    }
+  data: {
+    coupon: 'FREE'
   }
 });
 
