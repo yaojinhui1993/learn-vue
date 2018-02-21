@@ -24,7 +24,8 @@ mix
   .js("resources/assets/js/app.js", "public/js")
   .postCss("resources/assets/css/main.css", "public/css", [
     tailwindcss("tailwind.js")
-  ]);
+  ])
+  .version();
 
 // If you want to use LESS for your preprocessing
 // mix.less('resources/assets/less/main.less', 'public/css')

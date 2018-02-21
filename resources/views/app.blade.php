@@ -26,10 +26,7 @@
 <body class="font-sans font-normal">
 
   <div id="app" class="container">
-    <ul>
-      <li v-for="skill in skills" v-text="skill"></li>
-    </ul>
-
+    @yield('content')
   </div>
 
   <script src="{{ mix('js/app.js') }}"></script>
