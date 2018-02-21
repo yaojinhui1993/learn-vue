@@ -2,7 +2,7 @@
 
 @include('projects.list')
 
-<form method="POST" action="/projects" @submit.prevent="onSubmit" @keydown="errors.clear($event.target.name)">
+<form method="POST" action="/projects" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
 
   {{ csrf_field() }}
 
@@ -16,12 +16,12 @@
         id="name"
         name="name"
         class="input"
-        v-model="name"
+        v-model="form.name"
         >
       <p
         class="help is-danger"
-        v-if="errors.has('name')"
-        v-text="errors.get('name')"></p>
+        v-if="form.errors.has('name')"
+        v-text="form.errors.get('name')"></p>
     </div>
   </div>
 
@@ -34,18 +34,18 @@
         id="description"
         name="description"
         class="input"
-        v-model="description"
-        @keydown="errors.clear('description')"
+        v-model="form.description"
+        @keydown="form.errors.clear('description')"
         >
       <p class="help is-danger"
-        v-if="errors.has('description')"
-        v-text="errors.get('description')"></p>
+        v-if="form.errors.has('description')"
+        v-text="form.errors.get('description')"></p>
     </div>
   </div>
 
   <div class="field">
     <div class="control">
-      <button class="button is-primary" :disabled="errors.any()">Create</button>
+      <button class="button is-primary" :disabled="form.errors.any()">Create</button>
     </div>
   </div>
 </form>

@@ -30151,6 +30151,11 @@ var Errors = function () {
   }, {
     key: 'clear',
     value: function clear(field) {
+      if (!field) {
+        this.errors = {};
+        return;
+      }
+
       if (this.errors[field]) {
         delete this.errors[field];
       }
@@ -30175,29 +30180,76 @@ var Errors = function () {
   return Errors;
 }();
 
+var Form = function () {
+  function Form(data) {
+    _classCallCheck(this, Form);
+
+    this.originalData = data;
+
+    for (var field in data) {
+      this[field] = data[field];
+    }
+
+    this.errors = new Errors();
+  }
+
+  _createClass(Form, [{
+    key: 'data',
+    value: function data() {
+      var data = Object.assign({}, this);
+
+      delete data.originalData;
+      delete data.errors;
+
+      return data;
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+
+      for (var field in this.originalData) {
+        this[field] = '';
+      }
+    }
+  }, {
+    key: 'submit',
+    value: function submit(requestType, url) {
+      axios[requestType](url, this.data()).then(this.onSuccess.bind(this)).catch(this.onFail.bind(this));
+    }
+  }, {
+    key: 'onSuccess',
+    value: function onSuccess(response) {
+      // TEMPERORY
+      alert(response.data.message);
+
+      this.errors.clear();
+      this.reset();
+    }
+  }, {
+    key: 'onFail',
+    value: function onFail(error) {
+      this.errors.record(error.response.data.errors);
+    }
+  }]);
+
+  return Form;
+}();
+
 var app = new Vue({
   el: '#app',
   data: function data() {
     return {
-      name: '',
-      description: '',
-      errors: new Errors()
+      form: new Form({
+        name: '',
+        description: ''
+      })
     };
   },
 
 
   methods: {
     onSubmit: function onSubmit() {
-      var _this = this;
-
-      axios.post('/projects', this.$data).then(this.onSuccess).catch(function (error) {
-        return _this.errors.record(error.response.data.errors);
-      });
-    },
-    onSuccess: function onSuccess(response) {
-      alert(response.data.message);
-      this.description = '';
-      this.name = '';
+      this.form.submit('post', '/projects');
     }
   }
 });
