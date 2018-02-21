@@ -968,7 +968,12 @@ module.exports = __webpack_require__(36);
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
 /**
@@ -986,16 +991,21 @@ window.Vue = __webpack_require__(33);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('progress-view', {
-  data: function data() {
-    return {
-      completeRate: 0
-    };
-  }
-});
-
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    skills: []
+  },
+
+  mounted: function mounted() {
+    var _this = this;
+
+    // Make an ajax request to our server.
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/skills').then(function (_ref) {
+      var data = _ref.data;
+      return _this.skills = data;
+    });
+  }
 });
 
 /***/ }),

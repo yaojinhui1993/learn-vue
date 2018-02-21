@@ -1,3 +1,4 @@
+import Axios from 'axios';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -14,14 +15,16 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('progress-view', {
-  data() {
-    return {
-      completeRate: 0
-    }
-  }
-})
-
 const app = new Vue({
     el: '#app',
+    data: {
+      skills: []
+    },
+
+    mounted() {
+      // Make an ajax request to our server.
+      Axios.get('/skills')
+        .then(({ data }) => this.skills = data);
+
+    }
 });

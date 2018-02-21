@@ -26,12 +26,9 @@
 <body class="font-sans font-normal">
 
   <div id="app" class="container">
-    <progress-view inline-template>
-      <div>
-        <h1>Your Progress Through This Course Is @{{ completeRate }}%</h1>
-        <button @click="completeRate += 10">Add Rate</button>
-      </div>
-    </progress-view>
+    <ul>
+      <li v-for="skill in skills" v-text="skill"></li>
+    </ul>
 
   </div>
 
