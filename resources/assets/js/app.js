@@ -32,7 +32,7 @@ class Errors {
   }
 
   clear(field) {
-    if (! field) {
+    if (!field) {
       this.errors = {};
       return;
     }
@@ -68,55 +68,73 @@ class Form {
   }
 
   data() {
-    let data = Object.assign({}, this);
+    let data = {};
 
-    delete data.originalData;
-    delete data.errors;
+    for (let properties in this.originalData) {
+      data[properties] = this[properties];
+    }
 
     return data;
   }
 
   reset() {
 
-    for(let field in this.originalData) {
-      this[field] = '' ;
+    for (let field in this.originalData) {
+      this[field] = '';
     }
 
+    this.errors.clear();
+  }
+
+  post(url) {
+    return this.submit('post', url);
+  }
+
+  delete(url) {
+    return this.delete('delete', url);
   }
 
   submit(requestType, url) {
-    axios[requestType](url, this.data())
-      .then(this.onSuccess.bind(this))
-      .catch(this.onFail.bind(this));
+    return new Promise((resolve, reject) => {
+      axios[requestType](url, this.data())
+        .then(response => {
+          this.onSuccess(response.data);
+
+          resolve(response.data);
+        })
+        .catch(error => {
+          this.onFail(error.response.data);
+
+          reject(error.response.data);
+        });
+    })
+
   }
 
-  onSuccess(response) {
-    // TEMPERORY
-    alert(response.data.message);
-
-    this.errors.clear();
+  onSuccess(data) {
     this.reset();
   }
 
-  onFail(error) {
-    this.errors.record(error.response.data.errors);
+  onFail(errors) {
+    this.errors.record(errors);
   }
 }
 
 const app = new Vue({
-    el: '#app',
-    data() {
-      return {
-        form: new Form({
-          name: '',
-          description: '',
-        })
-      }
-    },
-
-    methods: {
-      onSubmit() {
-        this.form.submit('post', '/projects');
-      }
+  el: '#app',
+  data() {
+    return {
+      form: new Form({
+        name: '',
+        description: '',
+      })
     }
+  },
+
+  methods: {
+    onSubmit() {
+      this.form.post('/projects')
+        .then(data => console.log(data));
+    }
+  }
 });

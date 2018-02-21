@@ -30196,10 +30196,11 @@ var Form = function () {
   _createClass(Form, [{
     key: 'data',
     value: function data() {
-      var data = Object.assign({}, this);
+      var data = {};
 
-      delete data.originalData;
-      delete data.errors;
+      for (var properties in this.originalData) {
+        data[properties] = this[properties];
+      }
 
       return data;
     }
@@ -30210,25 +30211,45 @@ var Form = function () {
       for (var field in this.originalData) {
         this[field] = '';
       }
+
+      this.errors.clear();
+    }
+  }, {
+    key: 'post',
+    value: function post(url) {
+      return this.submit('post', url);
+    }
+  }, {
+    key: 'delete',
+    value: function _delete(url) {
+      return this.delete('delete', url);
     }
   }, {
     key: 'submit',
     value: function submit(requestType, url) {
-      axios[requestType](url, this.data()).then(this.onSuccess.bind(this)).catch(this.onFail.bind(this));
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        axios[requestType](url, _this.data()).then(function (response) {
+          _this.onSuccess(response.data);
+
+          resolve(response.data);
+        }).catch(function (error) {
+          _this.onFail(error.response.data);
+
+          reject(error.response.data);
+        });
+      });
     }
   }, {
     key: 'onSuccess',
-    value: function onSuccess(response) {
-      // TEMPERORY
-      alert(response.data.message);
-
-      this.errors.clear();
+    value: function onSuccess(data) {
       this.reset();
     }
   }, {
     key: 'onFail',
-    value: function onFail(error) {
-      this.errors.record(error.response.data.errors);
+    value: function onFail(errors) {
+      this.errors.record(errors);
     }
   }]);
 
@@ -30249,7 +30270,9 @@ var app = new Vue({
 
   methods: {
     onSubmit: function onSubmit() {
-      this.form.submit('post', '/projects');
+      this.form.post('/projects').then(function (data) {
+        return console.log(data);
+      });
     }
   }
 });
