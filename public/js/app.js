@@ -30107,10 +30107,7 @@ module.exports = function(module) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_Form__ = __webpack_require__("./resources/assets/js/core/Form.js");
 
 
 /**
@@ -30121,6 +30118,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 __webpack_require__("./resources/assets/js/bootstrap.js");
 
+
+
+window.Form = __WEBPACK_IMPORTED_MODULE_1__core_Form__["a" /* default */];
+
 window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 
 /**
@@ -30128,6 +30129,83 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+var app = new Vue({
+  el: '#app',
+  data: function data() {
+    return {
+      form: new __WEBPACK_IMPORTED_MODULE_1__core_Form__["a" /* default */]({
+        name: '',
+        description: ''
+      })
+    };
+  },
+
+
+  methods: {
+    onSubmit: function onSubmit() {
+      this.form.post('/projects').then(function (data) {
+        return console.log(data);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/bootstrap.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+window._ = __webpack_require__("./node_modules/lodash/lodash.js");
+
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+window.axios = __webpack_require__("./node_modules/axios/index.js");
+
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+} else {
+  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
+}
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+
+// import Echo from 'laravel-echo'
+
+// window.Pusher = require('pusher-js');
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: 'your-pusher-key'
+// });
+
+/***/ }),
+
+/***/ "./resources/assets/js/core/Errors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Errors = function () {
   function Errors() {
@@ -30137,19 +30215,19 @@ var Errors = function () {
   }
 
   _createClass(Errors, [{
-    key: 'get',
+    key: "get",
     value: function get(field) {
       if (this.errors[field]) {
         return this.errors[field][0];
       }
     }
   }, {
-    key: 'record',
+    key: "record",
     value: function record(errors) {
       this.errors = errors;
     }
   }, {
-    key: 'clear',
+    key: "clear",
     value: function clear(field) {
       if (!field) {
         this.errors = {};
@@ -30161,17 +30239,17 @@ var Errors = function () {
       }
     }
   }, {
-    key: 'has',
+    key: "has",
     value: function has(field) {
       return this.errors.hasOwnProperty(field);
     }
   }, {
-    key: 'any',
+    key: "any",
     value: function any() {
       return Object.keys(this.errors).length > 0;
     }
   }, {
-    key: 'getAll',
+    key: "getAll",
     value: function getAll() {
       return this.errors;
     }
@@ -30179,6 +30257,21 @@ var Errors = function () {
 
   return Errors;
 }();
+
+/* harmony default export */ __webpack_exports__["a"] = (Errors);
+
+/***/ }),
+
+/***/ "./resources/assets/js/core/Form.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__("./resources/assets/js/core/Errors.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 var Form = function () {
   function Form(data) {
@@ -30190,7 +30283,7 @@ var Form = function () {
       this[field] = data[field];
     }
 
-    this.errors = new Errors();
+    this.errors = new __WEBPACK_IMPORTED_MODULE_0__Errors__["a" /* default */]();
   }
 
   _createClass(Form, [{
@@ -30256,72 +30349,7 @@ var Form = function () {
   return Form;
 }();
 
-var app = new Vue({
-  el: '#app',
-  data: function data() {
-    return {
-      form: new Form({
-        name: '',
-        description: ''
-      })
-    };
-  },
-
-
-  methods: {
-    onSubmit: function onSubmit() {
-      this.form.post('/projects').then(function (data) {
-        return console.log(data);
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/assets/js/bootstrap.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-window._ = __webpack_require__("./node_modules/lodash/lodash.js");
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-window.axios = __webpack_require__("./node_modules/axios/index.js");
-
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-
-/**
- * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
- * a simple convenience so we don't have to attach every token manually.
- */
-
-var token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
-} else {
-  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
-}
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
+/* harmony default export */ __webpack_exports__["a"] = (Form);
 
 /***/ }),
 
